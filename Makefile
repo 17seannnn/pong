@@ -1,4 +1,4 @@
-SRCMODULES = main.cpp Game.cpp
+SRCMODULES = main.cpp Game.cpp TextureManager.cpp GameObject.cpp Player.cpp
 OBJMODULES = $(SRCMODULES:.cpp=.o)
 INCLUDEDIRS = include
 CXX=c++

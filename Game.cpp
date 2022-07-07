@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+#include "TextureManager.h"
+#include "Player.h"
+
 #include "Game.h"
 
 Game* Game::s_pInstance = 0;
@@ -28,14 +31,25 @@ bool Game::Init(const char* title, int width, int height)
         printf("Init error: %s\n", SDL_GetError());
         return false;
     }
+    SDL_SetRenderDrawColor(m_pRenderer, 0x00, 0x00, 0x00, 255);
 
     m_bRunning = true;
+
+    TextureManager::Instance()->SetRenderer(m_pRenderer);
+
+    m_objects.push_back(new Player());
 
     return true;
 }
 
 void Game::Clean()
 {
+    for (std::size_t i = 0; i < m_objects.size(); i++)
+        m_objects[i]->Clean();
+    m_objects.clear();
+
+    TextureManager::Instance()->Clean();
+
     SDL_DestroyRenderer(m_pRenderer);
     SDL_DestroyWindow(m_pWindow);
     SDL_Quit();
@@ -51,7 +65,17 @@ void Game::HandleEvents()
 }
 
 void Game::Update()
-{}
+{
+    for (std::size_t i = 0; i < m_objects.size(); i++)
+        m_objects[i]->Update();
+}
 
 void Game::Render()
-{}
+{
+    SDL_RenderClear(m_pRenderer);
+
+    for (std::size_t i = 0; i < m_objects.size(); i++)
+        m_objects[i]->Draw();
+
+    SDL_RenderPresent(m_pRenderer);
+}

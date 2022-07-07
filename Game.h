@@ -2,6 +2,9 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
+#include <vector>
+
+#include "Object.h"
 
 class Game { 
     static Game* s_pInstance;
@@ -10,6 +13,8 @@ class Game {
     SDL_Renderer* m_pRenderer;
 
     bool m_bRunning;
+
+    std::vector<Object*> m_objects;
 public:
     static Game* Instance();
 
