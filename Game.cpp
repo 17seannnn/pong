@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <iostream>
 
 #include "TextureManager.h"
 #include "InputHandler.h"
@@ -24,14 +24,14 @@ bool Game::Init(const char* title, int width, int height)
                                  SDL_WINDOW_SHOWN);
     if (!m_pWindow)
     {
-        printf("Init error: %s\n", SDL_GetError());
+        std::cout << "Init error: " << SDL_GetError() << std::endl;
         return false;
     }
 
     m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
     if (!m_pRenderer)
     {
-        printf("Init error: %s\n", SDL_GetError());
+        std::cout << "Init error: " << SDL_GetError() << std::endl;
         return false;
     }
     SDL_SetRenderDrawColor(m_pRenderer, 0x00, 0x00, 0x00, 255);
