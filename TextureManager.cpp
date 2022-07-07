@@ -26,7 +26,8 @@ void TextureManager::Clean()
 
 void TextureManager::Load(const char* textureFile, const std::string& id)
 {
-    if (m_texturesCount.find(id) != m_texturesCount.end()) {
+    if (m_texturesCount.find(id) != m_texturesCount.end())
+    {
         m_texturesCount[id]++;
         std::cout << "Already have " << id << " texture\n";
         return;
@@ -49,7 +50,8 @@ void TextureManager::Load(const char* textureFile, const std::string& id)
 void TextureManager::Unload(const std::string& id)
 {
     // Return if we have more than 1 copy
-    if (m_texturesCount[id] > 1) {
+    if (m_texturesCount[id] > 1)
+    {
         m_texturesCount[id]--;
         return;
     }

@@ -22,13 +22,15 @@ bool Game::Init(const char* title, int width, int height)
                                  SDL_WINDOWPOS_CENTERED,
                                  width, height,
                                  SDL_WINDOW_SHOWN);
-    if (!m_pWindow) {
+    if (!m_pWindow)
+    {
         printf("Init error: %s\n", SDL_GetError());
         return false;
     }
 
     m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
-    if (!m_pRenderer) {
+    if (!m_pRenderer)
+    {
         printf("Init error: %s\n", SDL_GetError());
         return false;
     }
