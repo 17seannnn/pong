@@ -5,8 +5,11 @@
 
 class Player : public GameObject {
 public:
+    Player() : GameObject() {}
 
-
+    virtual void Update();
+private:
+    void HandleInput();
 };
 
 #endif

@@ -8,6 +8,7 @@
 #include "TextureManager.h"
 
 class GameObject : public Object {
+protected:
     Vector2D m_position;
     Vector2D m_velocity;
     int m_width;
