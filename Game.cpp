@@ -36,8 +36,21 @@ bool Game::Init(const char* title, int width, int height)
     m_bRunning = true;
 
     TextureManager::Instance()->SetRenderer(m_pRenderer);
+    TextureManager::Instance()->Load("assets/divider.png", "divider");
+    TextureManager::Instance()->Load("assets/ball.png", "ball");
+    TextureManager::Instance()->Load("assets/player.png", "player");
 
-    m_objects.push_back(new Player());
+    GameObject* object = new GameObject();
+    object->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, "divider");
+    m_objects.push_back(object);
+
+    object = new GameObject();
+    object->Init(0, 0, 30, 30, "ball");
+    m_objects.push_back(object);
+
+    object = new GameObject();
+    object->Init(0, 100, 30, 140, "player");
+    m_objects.push_back(object);
 
     return true;
 }
