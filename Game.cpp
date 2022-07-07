@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "TextureManager.h"
+#include "InputHandler.h"
 #include "Player.h"
 
 #include "Game.h"
@@ -62,6 +63,7 @@ void Game::Clean()
     m_objects.clear();
 
     TextureManager::Instance()->Clean();
+    InputHandler::Instance()->Clean();
 
     SDL_DestroyRenderer(m_pRenderer);
     SDL_DestroyWindow(m_pWindow);
@@ -70,11 +72,7 @@ void Game::Clean()
 
 void Game::HandleEvents()
 {
-    SDL_Event e;
-
-    while (SDL_PollEvent(&e))
-        if (e.type == SDL_QUIT)
-            m_bRunning = false;
+    InputHandler::Instance()->Update();
 }
 
 void Game::Update()

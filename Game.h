@@ -19,7 +19,10 @@ public:
     static Game* Instance();
 
     bool Init(const char* title, int width, int height);
+    // Use it to quit from running game, clean after
+    void Quit() { m_bRunning = false; }
     void Clean();
+
     bool Running() const { return m_bRunning; }
     void HandleEvents();
     void Update();
