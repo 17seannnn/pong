@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "InputHandler.h"
 #include "Player.h"
+#include "Ball.h"
 
 #include "Game.h"
 
@@ -43,21 +44,21 @@ bool Game::Init(const char* title, int width, int height)
     TextureManager::Instance()->Load("assets/ball.png", "ball");
     TextureManager::Instance()->Load("assets/player.png", "player");
 
-    GameObject* object = new GameObject();
-    object->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, "divider");
-    m_objects.push_back(object);
+    Object* pObject = new GameObject();
+    pObject->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, "divider");
+    m_objects.push_back(pObject);
 
-    object = new GameObject();
-    object->Init(0, 0, 30, 30, "ball");
-    m_objects.push_back(object);
+    m_pBall = new Ball();
+    m_pBall->Init((1280 - 30) / 2, (720 - 30) / 2, 30, 30, "ball");
+    m_objects.push_back(m_pBall);
 
-    object = new Player(1);
-    object->Init(0, 100, 30, 140, "player");
-    m_objects.push_back(object);
+    m_pPlayer1 = new Player(1);
+    m_pPlayer1->Init(0, 0, 30, 140, "player");
+    m_objects.push_back(m_pPlayer1);
 
-    object = new Player(2);
-    object->Init(1280-30, 0, 30, 140, "player");
-    m_objects.push_back(object);
+    m_pPlayer2 = new Player(2);
+    m_pPlayer2->Init(1280-30, 0, 30, 140, "player");
+    m_objects.push_back(m_pPlayer2);
 
     return true;
 }

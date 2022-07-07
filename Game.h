@@ -14,6 +14,10 @@ class Game {
 
     bool m_bRunning;
 
+    Object* m_pBall;
+    Object* m_pPlayer1;
+    Object* m_pPlayer2;
+
     std::vector<Object*> m_objects;
 public:
     static Game* Instance();
