@@ -1,9 +1,9 @@
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 
 #include "TextureManager.h"
 #include "InputHandler.h"
-#include "Player.h"
-#include "Ball.h"
 
 #include "Game.h"
 
@@ -18,6 +18,8 @@ Game* Game::Instance()
 
 bool Game::Init(const char* title, int width, int height)
 {
+    srand(time(0));
+
     m_pWindow = SDL_CreateWindow(title,
                                  SDL_WINDOWPOS_CENTERED,
                                  SDL_WINDOWPOS_CENTERED,
@@ -37,8 +39,6 @@ bool Game::Init(const char* title, int width, int height)
     }
     SDL_SetRenderDrawColor(m_pRenderer, 0x00, 0x00, 0x00, 255);
 
-    m_bRunning = true;
-
     TextureManager::Instance()->SetRenderer(m_pRenderer);
     TextureManager::Instance()->Load("assets/divider.png", "divider");
     TextureManager::Instance()->Load("assets/ball.png", "ball");
@@ -49,7 +49,8 @@ bool Game::Init(const char* title, int width, int height)
     m_objects.push_back(pObject);
 
     m_pBall = new Ball();
-    m_pBall->Init((1280 - 30) / 2, (720 - 30) / 2, 30, 30, "ball");
+    m_pBall->Init(0, 0, 30, 30, "ball");
+    m_pBall->Respawn();
     m_objects.push_back(m_pBall);
 
     m_pPlayer1 = new Player(1);
@@ -59,6 +60,8 @@ bool Game::Init(const char* title, int width, int height)
     m_pPlayer2 = new Player(2);
     m_pPlayer2->Init(1280-30, 0, 30, 140, "player");
     m_objects.push_back(m_pPlayer2);
+
+    m_bRunning = true;
 
     return true;
 }

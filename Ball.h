@@ -7,7 +7,10 @@ class Ball : public GameObject {
 public:
     Ball() {}
 
-    void Update() { m_position += m_velocity; }
+    virtual void Update();
+
+    void Respawn();
+    void CheckCollision();
 };
 
 #endif

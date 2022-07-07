@@ -4,6 +4,9 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
+#include "Player.h"
+#include "Ball.h"
+
 #include "Object.h"
 
 class Game { 
@@ -14,9 +17,9 @@ class Game {
 
     bool m_bRunning;
 
-    Object* m_pBall;
-    Object* m_pPlayer1;
-    Object* m_pPlayer2;
+    Ball* m_pBall;
+    Player* m_pPlayer1;
+    Player* m_pPlayer2;
 
     std::vector<Object*> m_objects;
 public:
