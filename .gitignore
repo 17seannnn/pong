@@ -1,0 +1,7 @@
+*.swp
+*.o
+*~
+TODO
+a.out
+deps.mk
+3thparty
