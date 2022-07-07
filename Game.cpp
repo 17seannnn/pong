@@ -51,8 +51,12 @@ bool Game::Init(const char* title, int width, int height)
     object->Init(0, 0, 30, 30, "ball");
     m_objects.push_back(object);
 
-    object = new Player();
+    object = new Player(1);
     object->Init(0, 100, 30, 140, "player");
+    m_objects.push_back(object);
+
+    object = new Player(2);
+    object->Init(1280-30, 0, 30, 140, "player");
     m_objects.push_back(object);
 
     return true;
