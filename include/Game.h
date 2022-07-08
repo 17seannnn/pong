@@ -2,8 +2,8 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
-#include <vector>
 
+#include "Vector.h"
 #include "Player.h"
 #include "Ball.h"
 
@@ -23,7 +23,7 @@ class Game {
     Player* m_pPlayer1;
     Player* m_pPlayer2;
 
-    std::vector<Object*> m_objects;
+    Vector<Object*> m_objects;
 public:
     static Game* Instance();
 

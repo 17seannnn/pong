@@ -47,19 +47,19 @@ bool Game::Init(const char* title, int width, int height)
 
     Object* pObject = new GameObject();
     pObject->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, "divider");
-    m_objects.push_back(pObject);
+    m_objects.PushBack(pObject);
 
     m_pBall = new Ball();
     m_pBall->Init(0, 0, 30, 30, "ball");
-    m_objects.push_back(m_pBall);
+    m_objects.PushBack(m_pBall);
 
     m_pPlayer1 = new Player(1);
     m_pPlayer1->Init(0, (720 - 140) / 2, 30, 140, "player");
-    m_objects.push_back(m_pPlayer1);
+    m_objects.PushBack(m_pPlayer1);
 
     m_pPlayer2 = new Player(2);
     m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, "player");
-    m_objects.push_back(m_pPlayer2);
+    m_objects.PushBack(m_pPlayer2);
 
     score1 = 0;
     score2 = 0;
@@ -71,9 +71,9 @@ bool Game::Init(const char* title, int width, int height)
 
 void Game::Clean()
 {
-    for (std::size_t i = 0; i < m_objects.size(); i++)
+    for (int i = 0; i < m_objects.Size(); i++)
         m_objects[i]->Clean();
-    m_objects.clear();
+    m_objects.Clear();
 
     TextureManager::Instance()->Clean();
     InputHandler::Instance()->Clean();
@@ -90,7 +90,7 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-    for (std::size_t i = 0; i < m_objects.size(); i++)
+    for (int i = 0; i < m_objects.Size(); i++)
         m_objects[i]->Update();
 
     m_pBall->CheckCollision(m_pPlayer1);
@@ -112,7 +112,7 @@ void Game::Render()
 
     DrawScores();
 
-    for (std::size_t i = 0; i < m_objects.size(); i++)
+    for (int i = 0; i < m_objects.Size(); i++)
         m_objects[i]->Draw();
 
     SDL_RenderPresent(m_pRenderer);
