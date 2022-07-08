@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-void GameObject::Init(int x, int y, int w, int h, std::string textureID,
+void GameObject::Init(int x, int y, int w, int h, int textureID,
                       int callbackID, int animSpeed)
 {
     m_position = Vector2D(x, y);

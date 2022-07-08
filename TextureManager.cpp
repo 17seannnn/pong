@@ -14,25 +14,15 @@ TextureManager* TextureManager::Instance()
 
 void TextureManager::Clean()
 {
-    for (std::map<std::string, SDL_Texture*>::iterator it = m_textures.begin();
-         it != m_textures.end();
-         ++it)
-        SDL_DestroyTexture(it->second);
-    m_textures.clear();
-    m_texturesCount.clear();
+    for (int i = 0; i < m_textures.Size(); i++)
+        SDL_DestroyTexture(m_textures[i]);
+    m_textures.Clear();
 
     delete this;
 }
 
-void TextureManager::Load(const char* textureFile, const std::string& id)
+void TextureManager::Load(const char* textureFile, int id)
 {
-    if (m_texturesCount.find(id) != m_texturesCount.end())
-    {
-        m_texturesCount[id]++;
-        std::cout << "Already have " << id << " texture\n";
-        return;
-    }
-
     SDL_Surface* pTempSurface = IMG_Load(textureFile);
     if (!pTempSurface)
         // We don't return from this function, just output message
@@ -44,25 +34,9 @@ void TextureManager::Load(const char* textureFile, const std::string& id)
     SDL_FreeSurface(pTempSurface);
 
     m_textures[id] = pTexture;
-    m_texturesCount[id] = 1;
 }
 
-void TextureManager::Unload(const std::string& id)
-{
-    // Return if we have more than 1 copy
-    if (m_texturesCount[id] > 1)
-    {
-        m_texturesCount[id]--;
-        return;
-    }
-
-    SDL_DestroyTexture(m_textures[id]);
-    m_textures.erase(id);
-    m_texturesCount.erase(id);
-}
-
-void TextureManager::Draw(int x, int y, int w, int h, int frame, int row,
-                          const std::string& textureID)
+void TextureManager::Draw(int x, int y, int w, int h, int frame, int row, int id)
 {
     SDL_Rect src, dst;
 
@@ -73,11 +47,10 @@ void TextureManager::Draw(int x, int y, int w, int h, int frame, int row,
     dst.x = x;
     dst.y = y;
 
-    SDL_RenderCopy(m_pRenderer, m_textures[textureID], &src, &dst);
+    SDL_RenderCopy(m_pRenderer, m_textures[id], &src, &dst);
 }
 
-void TextureManager::GetNumFramesAndRows(const std::string& textureID,
-                                         int& numFrames, int& numRows)
+void TextureManager::GetNumFramesAndRows(int id, int& numFrames, int& numRows)
 {
-    SDL_QueryTexture(m_textures[textureID], 0, 0, &numFrames, &numRows);
+    SDL_QueryTexture(m_textures[id], 0, 0, &numFrames, &numRows);
 }

@@ -19,11 +19,11 @@ protected:
     int m_currentRow;
     int m_numFrames;
     int m_numRows;
-    std::string m_textureID;
+    int m_textureID;
 public:
     GameObject() : Object() {}
 
-    virtual void Init(int x, int y, int w, int h, std::string textureID,
+    virtual void Init(int x, int y, int w, int h, int textureID,
                       int callbackID = 0, int animSpeed = 0);
     virtual void Clean() { delete this; }
     virtual void Update() {}

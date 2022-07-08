@@ -14,7 +14,7 @@ public:
         m_length = 0;
         m_lastIndex = -1;
     }
-    ~Vector() { delete[] m_array; }
+    ~Vector() { if (m_array) delete[] m_array; }
 
     T& operator[](int index)
     {
@@ -38,6 +38,7 @@ public:
     void Clear()
     {
         delete[] m_array;
+        m_array = 0;
         m_size = 0;
         m_length = 0;
         m_lastIndex = -1;

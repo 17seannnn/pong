@@ -40,25 +40,25 @@ bool Game::Init(const char* title, int width, int height)
     SDL_SetRenderDrawColor(m_pRenderer, 0x00, 0x00, 0x00, 255);
 
     TextureManager::Instance()->SetRenderer(m_pRenderer);
-    TextureManager::Instance()->Load("assets/numbers.png", "numbers");
-    TextureManager::Instance()->Load("assets/divider.png", "divider");
-    TextureManager::Instance()->Load("assets/ball.png", "ball");
-    TextureManager::Instance()->Load("assets/player.png", "player");
+    TextureManager::Instance()->Load("assets/divider.png", TEXTURE_DIVIDER);
+    TextureManager::Instance()->Load("assets/ball.png", TEXTURE_BALL);
+    TextureManager::Instance()->Load("assets/player.png", TEXTURE_PLAYER);
+    TextureManager::Instance()->Load("assets/numbers.png", TEXTURE_NUMBERS);
 
     Object* pObject = new GameObject();
-    pObject->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, "divider");
+    pObject->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, TEXTURE_DIVIDER);
     m_objects.PushBack(pObject);
 
     m_pBall = new Ball();
-    m_pBall->Init(0, 0, 30, 30, "ball");
+    m_pBall->Init(0, 0, 30, 30, TEXTURE_BALL);
     m_objects.PushBack(m_pBall);
 
     m_pPlayer1 = new Player(1);
-    m_pPlayer1->Init(0, (720 - 140) / 2, 30, 140, "player");
+    m_pPlayer1->Init(0, (720 - 140) / 2, 30, 140, TEXTURE_PLAYER);
     m_objects.PushBack(m_pPlayer1);
 
     m_pPlayer2 = new Player(2);
-    m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, "player");
+    m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, TEXTURE_PLAYER);
     m_objects.PushBack(m_pPlayer2);
 
     score1 = 0;
@@ -128,7 +128,7 @@ void Game::DrawScores()
         tempScore /= 10;
         TextureManager::Instance()->Draw((1280 - 30)/2 - 150 - 80*i, 0,
                                           100, 140, n > 0 ? n-1 : 9, 0,
-                                          "numbers");
+                                          TEXTURE_NUMBERS);
         i++;
     } while (tempScore > 0);
 
@@ -147,7 +147,7 @@ void Game::DrawScores()
         tempScore /= 10;
         TextureManager::Instance()->Draw((1280 - 30)/2 + 80*i, 0,
                                           100, 140, n > 0 ? n-1 : 9, 0,
-                                          "numbers");
+                                          TEXTURE_NUMBERS);
         i--;
     } while (tempScore > 0);
 }

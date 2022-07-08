@@ -5,7 +5,7 @@
 
 class Object {
 public:
-    virtual void Init(int x, int y, int w, int h, std::string textureID,
+    virtual void Init(int x, int y, int w, int h, int textureID,
                       int callbackID = 0, int animSpeed = 0) = 0;
     virtual void Clean() = 0;
     virtual void Update() = 0;

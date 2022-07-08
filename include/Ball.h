@@ -8,7 +8,7 @@ class Ball : public GameObject {
 public:
     Ball() {}
 
-    virtual void Init(int x, int y, int w, int h, std::string textureID,
+    virtual void Init(int x, int y, int w, int h, int textureID,
                       int callbackID = 0, int animSpeed = 0);
     virtual void Update();
 

@@ -7,7 +7,7 @@ const float SPEED_PART = MAX_SPEED / SPEED_PARTS;
 // There should be constant instead of 70 but...
 const float PLAYER_PART = 70 / SPEED_PARTS;
 
-void Ball::Init(int x, int y, int w, int h, std::string textureID,
+void Ball::Init(int x, int y, int w, int h, int textureID,
                 int callbackID, int animSpeed)
 {
     GameObject::Init(x, y, w, h, textureID);
