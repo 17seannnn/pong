@@ -1,6 +1,6 @@
 #include "Ball.h"
 
-const int MAX_SPEED = 25;
+const int MAX_SPEED = 20;
 
 void Ball::Update()
 {
@@ -14,10 +14,10 @@ void Ball::Respawn()
 {
     m_position = Vector2D((1280 - 30) / 2, (720 - 30) / 2);
     if (rand() % 2)
-        m_velocity.SetX(-10);
+        m_velocity.SetX(-MAX_SPEED/2);
     else
-        m_velocity.SetX(10);
-    m_velocity.SetY(3);
+        m_velocity.SetX(MAX_SPEED/2);
+    m_velocity.SetY(MAX_SPEED/10 + rand() % (MAX_SPEED/3));
 }
 
 void Ball::CheckCollision(GameObject* pObject)
@@ -30,7 +30,7 @@ void Ball::CheckCollision(GameObject* pObject)
             check_x < m_position.GetX() + m_width &&
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
-            m_velocity.SetX(-m_velocity.GetX());
+            m_velocity.SetX(MAX_SPEED);
     }
     else
     {
@@ -39,6 +39,6 @@ void Ball::CheckCollision(GameObject* pObject)
             check_x > m_position.GetX() &&
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
-            m_velocity.SetX(-m_velocity.GetX());
+            m_velocity.SetX(-MAX_SPEED);
     }
 }
