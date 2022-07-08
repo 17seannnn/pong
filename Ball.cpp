@@ -29,9 +29,9 @@ void Ball::CheckCollision(GameObject* pObject)
     // If x velocity < 0 then we check first player else second
     if (m_velocity.GetX() < 0)
     {
-        int check_x = pObject->GetPosition().GetX() + pObject->GetWidth();
-        if (check_x >= m_position.GetX() &&
-            check_x < m_position.GetX() + m_width &&
+        int checkX = pObject->GetPosition().GetX() + pObject->GetWidth();
+        if (checkX >= m_position.GetX() &&
+            checkX < m_position.GetX() + m_width &&
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
             m_velocity.SetX(MAX_SPEED);
@@ -40,9 +40,9 @@ void Ball::CheckCollision(GameObject* pObject)
     }
     else
     {
-        int check_x = pObject->GetPosition().GetX();
-        if (check_x <= m_position.GetX() + m_width &&
-            check_x > m_position.GetX() &&
+        int checkX = pObject->GetPosition().GetX();
+        if (checkX <= m_position.GetX() + m_width &&
+            checkX > m_position.GetX() &&
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
             m_velocity.SetX(-MAX_SPEED);
