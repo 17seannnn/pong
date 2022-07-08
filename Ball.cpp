@@ -50,10 +50,12 @@ void Ball::CheckCollision(GameObject* pObject)
             return;
     }
 
+    float ballBottom = m_position.GetY() + m_height;
+
     // If Ball's top is over player's half
     if (m_position.GetY() <= pObject->GetPosition().GetY() + pObject->GetHeight()/2)
         m_velocity.SetY( -SPEED_PART * ( SPEED_PARTS -
-        ( ( m_position.GetY() + m_height - pObject->GetPosition().GetY() ) /
+        ( ( ballBottom - pObject->GetPosition().GetY() ) /
         ( 70 / SPEED_PARTS ) ) ) );
     else
         ;
