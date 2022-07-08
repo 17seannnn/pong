@@ -41,7 +41,7 @@ void Ball::Respawn(int who)
         m_velocity.SetX(MAX_SPEED/2);
     else
         m_velocity.SetX(-MAX_SPEED/2);
-    m_velocity.SetY(MAX_SPEED/10 + rand() % (MAX_SPEED/3));
+    m_velocity.SetY(MAX_SPEED/10 + rand() % (MAX_SPEED/3) * ((rand() % 2) * -1));
 
     m_respawned = who;
 }
