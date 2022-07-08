@@ -6,6 +6,9 @@ const int MAX_SPEED = 20;
 const float SPEED_PARTS = 5.0f;
 const float SPEED_PART = MAX_SPEED / SPEED_PARTS;
 
+// There should be constant instead of 70 but...
+const float PLAYER_PART = 70 / SPEED_PARTS;
+
 void Ball::Update()
 {
     m_position += m_velocity;
@@ -34,9 +37,13 @@ void Ball::CheckCollision(GameObject* pObject)
             checkX < m_position.GetX() + m_width &&
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
+        {
             m_velocity.SetX(MAX_SPEED);
+        }
         else
+        {
             return;
+        }
     }
     else
     {
@@ -45,20 +52,28 @@ void Ball::CheckCollision(GameObject* pObject)
             checkX > m_position.GetX() &&
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
+        {
             m_velocity.SetX(-MAX_SPEED);
+        }
         else
+        {
             return;
+        }
     }
-
-    float ballBottom = m_position.GetY() + m_height;
 
     // If Ball's top is over player's half
     if (m_position.GetY() <= pObject->GetPosition().GetY() + pObject->GetHeight()/2)
-        m_velocity.SetY( -SPEED_PART * ( SPEED_PARTS -
-        ( ( ballBottom - pObject->GetPosition().GetY() ) /
-        ( 70 / SPEED_PARTS ) ) ) );
+    {
+        float ballBottom = m_position.GetY() + m_height;
+        float ballDepth = (ballBottom - pObject->GetPosition().GetY()) / PLAYER_PART;
+        m_velocity.SetY(-SPEED_PART * (SPEED_PARTS - ballDepth));
+    }
     else
-        ;
+    {
+        float playerHalf = pObject->GetPosition().GetY() + pObject->GetHeight()/2;
+        float playerDepth = (playerHalf - m_position.GetY()) / PLAYER_PART;
+        m_velocity.SetY(SPEED_PART * playerDepth);
+    }
 
     std::cout << m_velocity.GetY() << std::endl;
 }
