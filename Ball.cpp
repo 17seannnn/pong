@@ -26,20 +26,21 @@ void Ball::Update()
         m_velocity.SetY(-m_velocity.GetY());
 
     // Score for second player
-    if (m_position.GetX() < 0)
+    if (m_position.GetX() < -100)
         Respawn(2);
     // Score for first player
-    if (m_position.GetX() > 1280-30)
+    if (m_position.GetX() > 1280+100)
         Respawn(1);
 }
 
 void Ball::Respawn(int who)
 {
     m_position = Vector2D((1280 - 30) / 2, (720 - 30) / 2);
-    if (rand() % 2)
-        m_velocity.SetX(-MAX_SPEED/2);
-    else
+    // If first player won last round, give ball to the second player
+    if (who == 1)
         m_velocity.SetX(MAX_SPEED/2);
+    else
+        m_velocity.SetX(-MAX_SPEED/2);
     m_velocity.SetY(MAX_SPEED/10 + rand() % (MAX_SPEED/3));
 
     m_respawned = who;
