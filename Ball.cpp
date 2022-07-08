@@ -1,6 +1,10 @@
+#include <iostream>
+
 #include "Ball.h"
 
 const int MAX_SPEED = 20;
+const float SPEED_PARTS = 5.0f;
+const float SPEED_PART = MAX_SPEED / SPEED_PARTS;
 
 void Ball::Update()
 {
@@ -31,6 +35,8 @@ void Ball::CheckCollision(GameObject* pObject)
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
             m_velocity.SetX(MAX_SPEED);
+        else
+            return;
     }
     else
     {
@@ -40,5 +46,17 @@ void Ball::CheckCollision(GameObject* pObject)
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
             m_velocity.SetX(-MAX_SPEED);
+        else
+            return;
     }
+
+    // If Ball's top is over player's half
+    if (m_position.GetY() <= pObject->GetPosition().GetY() + pObject->GetHeight()/2)
+        m_velocity.SetY( -SPEED_PART * ( SPEED_PARTS -
+        ( ( m_position.GetY() + m_height - pObject->GetPosition().GetY() ) /
+        ( 70 / SPEED_PARTS ) ) ) );
+    else
+        ;
+
+    std::cout << m_velocity.GetY() << std::endl;
 }
