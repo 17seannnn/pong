@@ -40,6 +40,7 @@ bool Game::Init(const char* title, int width, int height)
     SDL_SetRenderDrawColor(m_pRenderer, 0x00, 0x00, 0x00, 255);
 
     TextureManager::Instance()->SetRenderer(m_pRenderer);
+    TextureManager::Instance()->Load("assets/numbers.png", "numbers");
     TextureManager::Instance()->Load("assets/divider.png", "divider");
     TextureManager::Instance()->Load("assets/ball.png", "ball");
     TextureManager::Instance()->Load("assets/player.png", "player");
