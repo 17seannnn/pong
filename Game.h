@@ -39,6 +39,8 @@ public:
 private:
     Game() {}
     ~Game() {}
+
+    void DrawScores();
 };
 
 #endif

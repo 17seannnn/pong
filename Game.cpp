@@ -104,15 +104,50 @@ void Game::Update()
         else
             score2++;
     }
-
 }
 
 void Game::Render()
 {
     SDL_RenderClear(m_pRenderer);
 
+    DrawScores();
+
     for (std::size_t i = 0; i < m_objects.size(); i++)
         m_objects[i]->Draw();
 
     SDL_RenderPresent(m_pRenderer);
+}
+
+void Game::DrawScores()
+{
+    // Draw first player's score
+    int tempScore = score1;
+    int i = 0;
+    do {
+        int n = tempScore % 10;
+        tempScore /= 10;
+        TextureManager::Instance()->Draw((1280 - 30)/2 - 150 - 80*i, 0,
+                                          100, 140, n > 0 ? n-1 : 9, 0,
+                                          "numbers");
+        i++;
+    } while (tempScore > 0);
+
+    // Get count of numbers of second player's score
+    tempScore = score2;
+    i = 0;
+    do {
+        tempScore /= 10;
+        i++;
+    } while (tempScore > 0);
+
+    // Draw second player's score
+    tempScore = score2;
+    do {
+        int n = tempScore % 10;
+        tempScore /= 10;
+        TextureManager::Instance()->Draw((1280 - 30)/2 + 80*i, 0,
+                                          100, 140, n > 0 ? n-1 : 9, 0,
+                                          "numbers");
+        i--;
+    } while (tempScore > 0);
 }
