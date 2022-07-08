@@ -24,6 +24,12 @@ void InputHandler::Update()
         case SDL_QUIT:
             Game::Instance()->Quit();
             break;
+
+        case SDL_KEYDOWN:
+            if (e.key.keysym.sym == SDLK_ESCAPE)
+                Game::Instance()->Quit();
+            break;
+
         default:
             break;
         }

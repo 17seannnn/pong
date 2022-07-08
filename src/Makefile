@@ -8,7 +8,7 @@ LDFLAGS = -lm `sdl2-config --libs` -lSDL2_image
 
 %.o: %.c $(foreach dir, $(INCLUDEDIRS), $dir/%.h)
 	$(CXX) $(CXXFLAGS) -c -o $@ $< 
-a.out: $(OBJMODULES)
+pong: $(OBJMODULES)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) 
 
 ifneq (clean, $(MAKECMDGOALS))
