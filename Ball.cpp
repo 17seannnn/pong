@@ -89,17 +89,21 @@ void Ball::CheckCollision(GameObject* pObject)
         }
     }
 
-    // If Ball's top is over player's half
-    if (m_position.GetY() <= pObject->GetPosition().GetY() + pObject->GetHeight()/2)
+    // If Ball's bottom is over player's half
+    float ballBottom = m_position.GetY() + m_height;
+    if (ballBottom <= pObject->GetPosition().GetY() + pObject->GetHeight()/2)
     {
-        float ballBottom = m_position.GetY() + m_height;
         float ballDepth = (ballBottom - pObject->GetPosition().GetY()) / PLAYER_PART;
+        if (ballDepth < 0)
+            ballDepth = -ballDepth;
         m_velocity.SetY(-SPEED_PART * (SPEED_PARTS - ballDepth));
     }
     else
     {
         float playerHalf = pObject->GetPosition().GetY() + pObject->GetHeight()/2;
-        float playerDepth = (playerHalf - m_position.GetY()) / PLAYER_PART;
+        float playerDepth = (m_position.GetY() - playerHalf) / PLAYER_PART;
+        if (playerDepth < 0)
+            playerDepth = -playerDepth;
         m_velocity.SetY(SPEED_PART * playerDepth);
     }
 }
