@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Ball.h"
 
 const int MAX_SPEED = 20;
@@ -9,15 +7,26 @@ const float SPEED_PART = MAX_SPEED / SPEED_PARTS;
 // There should be constant instead of 70 but...
 const float PLAYER_PART = 70 / SPEED_PARTS;
 
+void Ball::Init(int x, int y, int w, int h, std::string textureID,
+                int callbackID, int animSpeed)
+{
+    GameObject::Init(x, y, w, h, textureID);
+
+    Respawn(0);
+}
+
 void Ball::Update()
 {
+    if (m_respawned > 0)
+        m_respawned = 0;
+
     m_position += m_velocity;
 
     if (m_position.GetY() <= 0 || m_position.GetY() >= 720 - 30)
         m_velocity.SetY(-m_velocity.GetY());
 }
 
-void Ball::Respawn()
+void Ball::Respawn(int who)
 {
     m_position = Vector2D((1280 - 30) / 2, (720 - 30) / 2);
     if (rand() % 2)
@@ -25,6 +34,8 @@ void Ball::Respawn()
     else
         m_velocity.SetX(MAX_SPEED/2);
     m_velocity.SetY(MAX_SPEED/10 + rand() % (MAX_SPEED/3));
+
+    m_respawned = who;
 }
 
 void Ball::CheckCollision(GameObject* pObject)
@@ -74,6 +85,4 @@ void Ball::CheckCollision(GameObject* pObject)
         float playerDepth = (playerHalf - m_position.GetY()) / PLAYER_PART;
         m_velocity.SetY(SPEED_PART * playerDepth);
     }
-
-    std::cout << m_velocity.GetY() << std::endl;
 }

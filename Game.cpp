@@ -50,7 +50,6 @@ bool Game::Init(const char* title, int width, int height)
 
     m_pBall = new Ball();
     m_pBall->Init(0, 0, 30, 30, "ball");
-    m_pBall->Respawn();
     m_objects.push_back(m_pBall);
 
     m_pPlayer1 = new Player(1);
@@ -60,6 +59,9 @@ bool Game::Init(const char* title, int width, int height)
     m_pPlayer2 = new Player(2);
     m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, "player");
     m_objects.push_back(m_pPlayer2);
+
+    score1 = 0;
+    score2 = 0;
 
     m_bRunning = true;
 
@@ -92,6 +94,16 @@ void Game::Update()
 
     m_pBall->CheckCollision(m_pPlayer1);
     m_pBall->CheckCollision(m_pPlayer2);
+
+    int who = m_pBall->Respawned();
+    if (who)
+    {
+        if (who == 1)
+            score1++;
+        else
+            score2++;
+    }
+
 }
 
 void Game::Render()
