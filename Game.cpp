@@ -54,11 +54,11 @@ bool Game::Init(const char* title, int width, int height)
     m_objects.push_back(m_pBall);
 
     m_pPlayer1 = new Player(1);
-    m_pPlayer1->Init(0, 0, 30, 140, "player");
+    m_pPlayer1->Init(0, (720 - 140) / 2, 30, 140, "player");
     m_objects.push_back(m_pPlayer1);
 
     m_pPlayer2 = new Player(2);
-    m_pPlayer2->Init(1280-30, 0, 30, 140, "player");
+    m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, "player");
     m_objects.push_back(m_pPlayer2);
 
     m_bRunning = true;
@@ -89,6 +89,9 @@ void Game::Update()
 {
     for (std::size_t i = 0; i < m_objects.size(); i++)
         m_objects[i]->Update();
+
+    m_pBall->CheckCollision(m_pPlayer1);
+    m_pBall->CheckCollision(m_pPlayer2);
 }
 
 void Game::Render()

@@ -10,7 +10,7 @@ public:
     virtual void Update();
 
     void Respawn();
-    void CheckCollision();
+    void CheckCollision(GameObject* pObject);
 };
 
 #endif

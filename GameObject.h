@@ -33,6 +33,11 @@ public:
                                          m_currentFrame, m_currentRow,
                                          m_textureID);
     }
+
+    Vector2D& GetPosition() { return m_position; }
+    Vector2D& GetVelocity() { return m_velocity; }
+    int GetWidth() { return m_width; }
+    int GetHeight() { return m_height; }
 };
 
 #endif
