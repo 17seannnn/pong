@@ -22,8 +22,15 @@ void Ball::Update()
 
     m_position += m_velocity;
 
-    if (m_position.GetY() <= 0 || m_position.GetY() >= 720 - 30)
+    if (m_position.GetY() < 0 || m_position.GetY() > 720-30)
         m_velocity.SetY(-m_velocity.GetY());
+
+    // Score for second player
+    if (m_position.GetX() < 0)
+        Respawn(2);
+    // Score for first player
+    if (m_position.GetX() > 1280-30)
+        Respawn(1);
 }
 
 void Ball::Respawn(int who)
