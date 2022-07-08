@@ -11,9 +11,9 @@ Pong
 
 | Key | Action |
 |---|---|
-| Arrow UP,   W | turn right |
-| Arrow DOWN, S | turn left  |
-| Escape        | exit       |
+| Arrow UP,   W | go top    |
+| Arrow DOWN, S | go bottom |
+| Escape        | exit      |
 
 ### Build
 
