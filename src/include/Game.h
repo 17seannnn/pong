@@ -3,11 +3,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "Vector.h"
-#include "Player.h"
-#include "Ball.h"
-
-#include "Object.h"
+#include "GameState.h"
 
 class Game { 
     static Game* s_pInstance;
@@ -15,15 +11,10 @@ class Game {
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
 
+    GameState* m_pCurrentState;
+    GameState* m_pNextState;
+
     bool m_bRunning;
-
-    int m_score1, m_score2;
-
-    Ball* m_pBall;
-    Player* m_pPlayer1;
-    Player* m_pPlayer2;
-
-    Vector<Object*> m_objects;
 public:
     static Game* Instance();
 
@@ -39,8 +30,6 @@ public:
 private:
     Game() {}
     ~Game() {}
-
-    void DrawScores();
 };
 
 #endif
