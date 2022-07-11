@@ -61,8 +61,8 @@ bool Game::Init(const char* title, int width, int height)
     m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, TEXTURE_PLAYER);
     m_objects.PushBack(m_pPlayer2);
 
-    score1 = 0;
-    score2 = 0;
+    m_score1 = 0;
+    m_score2 = 0;
 
     m_bRunning = true;
 
@@ -100,9 +100,9 @@ void Game::Update()
     if (who)
     {
         if (who == 1)
-            score1++;
+            m_score1++;
         else
-            score2++;
+            m_score2++;
     }
 }
 
@@ -121,7 +121,7 @@ void Game::Render()
 void Game::DrawScores()
 {
     // Draw first player's score
-    int tempScore = score1;
+    int tempScore = m_score1;
     int i = 0;
     do {
         int n = tempScore % 10;
@@ -133,7 +133,7 @@ void Game::DrawScores()
     } while (tempScore > 0);
 
     // Get count of numbers of second player's score
-    tempScore = score2;
+    tempScore = m_score2;
     i = 0;
     do {
         tempScore /= 10;
@@ -141,7 +141,7 @@ void Game::DrawScores()
     } while (tempScore > 0);
 
     // Draw second player's score
-    tempScore = score2;
+    tempScore = m_score2;
     do {
         int n = tempScore % 10;
         tempScore /= 10;

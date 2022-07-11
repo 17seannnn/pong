@@ -17,7 +17,7 @@ class Game {
 
     bool m_bRunning;
 
-    int score1, score2;
+    int m_score1, m_score2;
 
     Ball* m_pBall;
     Player* m_pPlayer1;
