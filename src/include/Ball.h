@@ -5,6 +5,7 @@
 
 class Ball : public GameObject {
     int m_respawned;
+    int m_collised;
 public:
     Ball() {}
 
@@ -12,8 +13,13 @@ public:
                       int callbackID = 0, int animSpeed = 0);
     virtual void Update();
 
-    // Returns: 0 - if no respawned, 1 - score for 1 player, 2 - score for 2
+    // Returns who get score: 1 - first player, 2 - second, 0 - none
     int Respawned() { return m_respawned; }
+    /*
+     * Returns who collised with the ball in current frame:
+     * 1 - first, 2 - second, 0 - none
+     */
+    int Collised() { return m_collised; }
     void CheckCollision(GameObject* pObject);
 private:
     void Respawn(int who);

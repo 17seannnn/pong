@@ -4,6 +4,8 @@
 
 const int SPEED = 10;
 const int DECISION_DELAY = 150;
+const int MIN_HIT_DELAY = 200;
+const int HIT_DELAY_RANGE = 300;
 
 void Player::Update()
 {
@@ -48,8 +50,27 @@ void Player::HandleInput()
     }
 }
 
+#include "stdio.h"
+
 void Player::HandleAI()
 {
+    // If we are stunned after hitting the ball
+    if (m_hitDelay > 0 && SDL_GetTicks() - m_lastHit < m_hitDelay)
+    {
+        printf("Delay: %d\nLast hit: %d\nCurrent ticks: %d\n",
+               m_hitDelay, m_lastHit, SDL_GetTicks());
+        return;
+    }
+
+    // Check for hitting with the ball
+    if (m_pBall->Collised() == 2) // Ball doesn't know about AI_PLAYER
+    {
+        m_lastHit = SDL_GetTicks();
+        m_hitDelay = MIN_HIT_DELAY + rand() % HIT_DELAY_RANGE;
+        return;
+    }
+
+    // Decisions
     if (SDL_GetTicks() - m_lastDecision >= DECISION_DELAY)
     {
         m_lastDecision = SDL_GetTicks();
@@ -71,8 +92,9 @@ void Player::HandleAI()
         }
 
         // Stop if ball is on our Y position
-        if (m_pBall->GetPosition().GetY() >= m_position.GetY() + m_height/2.5f &&
-            m_pBall->GetPosition().GetY() <= m_position.GetY() + m_height*2/2.5f)
+        if (m_pBall->GetPosition().GetY() +
+            m_pBall->GetHeight() > m_position.GetY() + m_height/2.5f &&
+            m_pBall->GetPosition().GetY() < m_position.GetY() + m_height*2/2.5f)
         {
             m_velocity.SetY(0);
             return;

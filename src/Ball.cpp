@@ -67,9 +67,11 @@ void Ball::CheckCollision(GameObject* pObject)
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
         {
             m_velocity.SetX(MAX_SPEED);
+            m_collised = 1;
         }
         else
         {
+            m_collised = 0;
             return;
         }
     }
@@ -82,9 +84,11 @@ void Ball::CheckCollision(GameObject* pObject)
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
         {
             m_velocity.SetX(-MAX_SPEED);
+            m_collised = 2;
         }
         else
         {
+            m_collised = 0;
             return;
         }
     }
