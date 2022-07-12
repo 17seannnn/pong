@@ -49,5 +49,8 @@ void Player::HandleInput()
 
 void Player::HandleAI()
 {
-    m_position.SetY(m_pBall->GetPosition().GetY()-70);
+    if (m_pBall->GetPosition().GetY() < m_position.GetY())
+        m_velocity.SetY(-SPEED);
+    else
+        m_velocity.SetY(SPEED);
 }
