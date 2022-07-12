@@ -58,19 +58,21 @@ void Player::HandleAI()
         if (m_pBall->GetVelocity().GetX() <= 0)
         {
             // Already there
-            if (720/2 >= m_position.GetY() + m_height/3 &&
-                720/2 <= m_position.GetY() + m_height*2/3)
+            if (720/3 <= m_position.GetY() + m_height/3 &&
+                720*2/3 >= m_position.GetY() + m_height*2/3)
                 return;
 
             if (720/2 < m_position.GetY())
                 m_velocity.SetY(-SPEED);
             else
                 m_velocity.SetY(SPEED);
+
+            return;
         }
 
         // Stop if ball is on our Y position
-        if (m_pBall->GetPosition().GetY() >= m_position.GetY() + m_height/3 &&
-            m_pBall->GetPosition().GetY() <= m_position.GetY() + m_height*2/3)
+        if (m_pBall->GetPosition().GetY() >= m_position.GetY() + m_height/2.5f &&
+            m_pBall->GetPosition().GetY() <= m_position.GetY() + m_height*2/2.5f)
         {
             m_velocity.SetY(0);
             return;
