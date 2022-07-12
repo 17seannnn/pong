@@ -2,6 +2,8 @@
 
 #include "Player.h"
 
+const int SPEED = 10;
+
 void Player::Update()
 {
     HandleInput();
@@ -16,24 +18,36 @@ void Player::Update()
 
 void Player::HandleInput()
 {
-    switch (m_who) {
-    case 1:
+    switch (m_who)
+    {
+    case FIRST_PLAYER:
         if (InputHandler::Instance()->IsKeyDown(SDLK_w))
-            m_velocity.SetY(-10);
+            m_velocity.SetY(-SPEED);
         else if (InputHandler::Instance()->IsKeyDown(SDLK_s))
-            m_velocity.SetY(10);
+            m_velocity.SetY(SPEED);
         else
             m_velocity.SetY(0);
         break;
-    case 2:
+
+    case SECOND_PLAYER:
         if (InputHandler::Instance()->IsKeyDown(SDLK_UP))
-            m_velocity.SetY(-10);
+            m_velocity.SetY(-SPEED);
         else if (InputHandler::Instance()->IsKeyDown(SDLK_DOWN))
-            m_velocity.SetY(10);
+            m_velocity.SetY(SPEED);
         else
-            m_velocity.SetY(0);
+            m_velocity.SetY(SPEED);
         break;
+
+    case AI_PLAYER:
+        HandleAI();
+        break;
+
     default:
         break;
     }
+}
+
+void Player::HandleAI()
+{
+    m_position.SetY(m_pBall->GetPosition().GetY()-70);
 }

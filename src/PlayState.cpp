@@ -10,11 +10,11 @@ PlayState::PlayState()
     m_pBall->Init(0, 0, 30, 30, TEXTURE_BALL);
     m_objects.PushBack(m_pBall);
 
-    m_pPlayer1 = new Player(FIRST_PLAYER);
+    m_pPlayer1 = new Player(FIRST_PLAYER, 0);
     m_pPlayer1->Init(0, (720 - 140) / 2, 30, 140, TEXTURE_PLAYER);
     m_objects.PushBack(m_pPlayer1);
 
-    m_pPlayer2 = new Player(SECOND_PLAYER);
+    m_pPlayer2 = new Player(AI_PLAYER, m_pBall);
     m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, TEXTURE_PLAYER);
     m_objects.PushBack(m_pPlayer2);
 
