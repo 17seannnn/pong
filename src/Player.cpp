@@ -8,6 +8,9 @@ const int MIN_HIT_DELAY = 200;
 const int HIT_DELAY_RANGE = 300;
 const int MAX_PREDICTION_ITERATIONS = 2;
 
+const int PREDICTION_ERROR_CHANCE = 5;
+const int PREDICTION_ERROR_RANGE = 100;
+
 void Player::Update()
 {
     HandleInput();
@@ -127,6 +130,16 @@ void Player::HandleAI()
             else if (position.GetX() + width >= m_position.GetX())
             {
                 bPredicted = true;
+                // Even AI can make mistakes...
+                if (rand() % 100 < PREDICTION_ERROR_CHANCE)
+                {
+                    int error = rand() % PREDICTION_ERROR_RANGE;
+                    if (rand() % 2)
+                        error = -error;
+
+                    position.SetY(position.GetY() + error);
+                }
+
                 break;
             }
         }
