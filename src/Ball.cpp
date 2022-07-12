@@ -1,8 +1,7 @@
 #include "Ball.h"
 
-const int MAX_SPEED = 20;
 const float SPEED_PARTS = 5.0f;
-const float SPEED_PART = MAX_SPEED / SPEED_PARTS;
+const float SPEED_PART = Ball::BALL_MAX_SPEED / SPEED_PARTS;
 
 // There should be constant instead of 70 but...
 const float PLAYER_PART = 70 / SPEED_PARTS;
@@ -47,10 +46,11 @@ void Ball::Respawn(int who)
     m_position = Vector2D((1280 - 30) / 2, (720 - 30) / 2);
     // If first player won last round, give ball to the second player
     if (who == 1)
-        m_velocity.SetX(MAX_SPEED/2);
+        m_velocity.SetX(Ball::BALL_RESPAWNED_SPEED);
     else
-        m_velocity.SetX(-MAX_SPEED/2);
-    m_velocity.SetY(MAX_SPEED/10 + rand() % (MAX_SPEED/3) * ((rand() % 2) * -1));
+        m_velocity.SetX(-Ball::BALL_RESPAWNED_SPEED);
+    m_velocity.SetY(Ball::BALL_MAX_SPEED/10 + rand() %
+                    (Ball::BALL_MAX_SPEED/3) * ((rand() % 2) * -1));
 
     m_respawned = who;
 }
@@ -66,7 +66,7 @@ void Ball::CheckCollision(GameObject* pObject)
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
         {
-            m_velocity.SetX(MAX_SPEED);
+            m_velocity.SetX(Ball::BALL_MAX_SPEED);
             m_collised = 1;
         }
         else
@@ -83,7 +83,7 @@ void Ball::CheckCollision(GameObject* pObject)
             pObject->GetPosition().GetY() < m_position.GetY() + m_height &&
             pObject->GetPosition().GetY() + pObject->GetHeight() > m_position.GetY())
         {
-            m_velocity.SetX(-MAX_SPEED);
+            m_velocity.SetX(-Ball::BALL_MAX_SPEED);
             m_collised = 2;
         }
         else

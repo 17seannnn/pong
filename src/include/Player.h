@@ -14,13 +14,16 @@ class Player : public GameObject {
 
     // AI section
     Ball* m_pBall;
+
     unsigned m_lastDecision;
     unsigned m_lastHit;
     unsigned m_hitDelay;
+
+    bool m_bHoldPosition;
 public:
     Player(PlayerType who, Ball* pBall) :
-        GameObject(), m_who(who), m_pBall(pBall),
-        m_lastDecision(0), m_lastHit(0), m_hitDelay(0) {}
+        GameObject(), m_who(who), m_pBall(pBall), m_lastDecision(0),
+        m_lastHit(0), m_hitDelay(0), m_bHoldPosition(false) {}
 
     virtual void Update();
 private:

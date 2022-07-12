@@ -7,6 +7,9 @@ class Ball : public GameObject {
     int m_respawned;
     int m_collised;
 public:
+    static const int BALL_MAX_SPEED = 20;
+    static const int BALL_RESPAWNED_SPEED = BALL_MAX_SPEED/2;
+
     Ball() {}
 
     virtual void Init(int x, int y, int w, int h, int textureID,

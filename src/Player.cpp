@@ -1,10 +1,8 @@
-#include <stdio.h>
-
 #include "InputHandler.h"
 
 #include "Player.h"
 
-const int SPEED = 10;
+const int PLAYER_SPEED = 10;
 const int DECISION_DELAY = 60;
 const int MIN_HIT_DELAY = 200;
 const int HIT_DELAY_RANGE = 300;
@@ -28,20 +26,20 @@ void Player::HandleInput()
     {
     case FIRST_PLAYER:
         if (InputHandler::Instance()->IsKeyDown(SDLK_w))
-            m_velocity.SetY(-SPEED);
+            m_velocity.SetY(-PLAYER_SPEED);
         else if (InputHandler::Instance()->IsKeyDown(SDLK_s))
-            m_velocity.SetY(SPEED);
+            m_velocity.SetY(PLAYER_SPEED);
         else
             m_velocity.SetY(0);
         break;
 
     case SECOND_PLAYER:
         if (InputHandler::Instance()->IsKeyDown(SDLK_UP))
-            m_velocity.SetY(-SPEED);
+            m_velocity.SetY(-PLAYER_SPEED);
         else if (InputHandler::Instance()->IsKeyDown(SDLK_DOWN))
-            m_velocity.SetY(SPEED);
+            m_velocity.SetY(PLAYER_SPEED);
         else
-            m_velocity.SetY(SPEED);
+            m_velocity.SetY(PLAYER_SPEED);
         break;
 
     case AI_PLAYER:
@@ -62,6 +60,8 @@ void Player::HandleAI()
     // Check for hitting with the ball
     if (m_pBall->Collised() == 2) // Ball doesn't know about AI_PLAYER
     {
+        m_bHoldPosition = false;
+
         m_lastHit = SDL_GetTicks();
         m_hitDelay = MIN_HIT_DELAY + rand() % HIT_DELAY_RANGE;
         return;
@@ -73,6 +73,16 @@ void Player::HandleAI()
 
     m_lastDecision = SDL_GetTicks();
 
+    // Handle hold position param
+    if (m_bHoldPosition)
+    {
+        // If ball just respawned and we still holding the position
+        if (m_pBall->GetVelocity().GetX() == Ball::BALL_RESPAWNED_SPEED)
+            m_bHoldPosition = false;
+        else
+            return;
+    }
+
     // Try to take the position on the middle of map
     if (m_pBall->GetVelocity().GetX() <= 0)
     {
@@ -82,9 +92,9 @@ void Player::HandleAI()
             return;
 
         if (720/2 < m_position.GetY())
-            m_velocity.SetY(-SPEED);
+            m_velocity.SetY(-PLAYER_SPEED);
         else
-            m_velocity.SetY(SPEED);
+            m_velocity.SetY(PLAYER_SPEED);
 
         return;
     }
@@ -108,11 +118,11 @@ void Player::HandleAI()
 
             if (position.GetY() < 0)
             {
-                velocity.SetY(SPEED);
+                velocity.SetY(PLAYER_SPEED);
             }
             else if (position.GetY() + height >= 720)
             {
-                velocity.SetY(-SPEED);
+                velocity.SetY(-PLAYER_SPEED);
             }
             else if (position.GetX() + width >= m_position.GetX())
             {
@@ -125,12 +135,20 @@ void Player::HandleAI()
     // Align to predicted position
     if (bPredicted)
     {
-        printf("Predicted: %f-%f\n", position.GetX(), position.GetY());
+        // Check if we already aligned
+        if (position.GetY() + height > m_position.GetY() &&
+            position.GetY() < m_position.GetY() + m_height)
+        {
+            m_bHoldPosition = true;
+            m_velocity.SetY(0);
+            return;
+        }
 
+        // Try to align
         if (position.GetY() < m_position.GetY() + (m_height - height)/2)
-            m_velocity.SetY(-SPEED);
+            m_velocity.SetY(-PLAYER_SPEED);
         else
-            m_velocity.SetY(SPEED);
+            m_velocity.SetY(PLAYER_SPEED);
         return;
     }
 
@@ -145,7 +163,7 @@ void Player::HandleAI()
 
     // Try to align
     if (m_pBall->GetPosition().GetY() < m_position.GetY())
-        m_velocity.SetY(-SPEED);
+        m_velocity.SetY(-PLAYER_SPEED);
     else
-        m_velocity.SetY(SPEED);
+        m_velocity.SetY(PLAYER_SPEED);
 }
