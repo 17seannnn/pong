@@ -1,6 +1,6 @@
-#include "TwoPlayersState.h"
+#include "PlayState.h"
 
-TwoPlayersState::TwoPlayersState()
+PlayState::PlayState()
 {
     Object* pObject = new GameObject();
     pObject->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, TEXTURE_DIVIDER);
@@ -22,7 +22,7 @@ TwoPlayersState::TwoPlayersState()
     m_score2 = 0;
 }
 
-void TwoPlayersState::Update()
+void PlayState::Update()
 {
     for (int i = 0; i < m_objects.Size(); i++)
         m_objects[i]->Update();
@@ -40,7 +40,7 @@ void TwoPlayersState::Update()
     }
 }
 
-void TwoPlayersState::Render()
+void PlayState::Render()
 {
     DrawScores();
 
@@ -48,7 +48,7 @@ void TwoPlayersState::Render()
         m_objects[i]->Draw();
 }
 
-void TwoPlayersState::DrawScores()
+void PlayState::DrawScores()
 {
     // Draw first player's score
     int tempScore = m_score1;

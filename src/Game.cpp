@@ -4,7 +4,7 @@
 
 #include "TextureManager.h"
 #include "InputHandler.h"
-#include "TwoPlayersState.h"
+#include "PlayState.h"
 
 #include "Game.h"
 
@@ -46,7 +46,7 @@ bool Game::Init(const char* title, int width, int height)
     TextureManager::Instance()->Load("assets/player.png", TEXTURE_PLAYER);
     TextureManager::Instance()->Load("assets/numbers.png", TEXTURE_NUMBERS);
 
-    m_pCurrentState = new TwoPlayersState();
+    m_pCurrentState = new PlayState();
     m_pNextState = 0;
 
     m_bRunning = true;
