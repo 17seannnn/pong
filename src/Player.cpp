@@ -3,7 +3,7 @@
 #include "Player.h"
 
 const int SPEED = 10;
-const int DECISION_DELAY = 150;
+const int DECISION_DELAY = 60;
 const int MIN_HIT_DELAY = 200;
 const int HIT_DELAY_RANGE = 300;
 
