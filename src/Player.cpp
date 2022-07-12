@@ -50,17 +50,11 @@ void Player::HandleInput()
     }
 }
 
-#include "stdio.h"
-
 void Player::HandleAI()
 {
     // If we are stunned after hitting the ball
     if (m_hitDelay > 0 && SDL_GetTicks() - m_lastHit < m_hitDelay)
-    {
-        printf("Delay: %d\nLast hit: %d\nCurrent ticks: %d\n",
-               m_hitDelay, m_lastHit, SDL_GetTicks());
         return;
-    }
 
     // Check for hitting with the ball
     if (m_pBall->Collised() == 2) // Ball doesn't know about AI_PLAYER
