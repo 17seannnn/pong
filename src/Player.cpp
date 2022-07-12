@@ -9,7 +9,7 @@ const int HIT_DELAY_RANGE = 300;
 const int MAX_PREDICTION_ITERATIONS = 2;
 
 const int PREDICTION_ERROR_CHANCE = 5;
-const int PREDICTION_ERROR_RANGE = 100;
+const int PREDICTION_ERROR_RANGE = 50;
 
 void Player::Update()
 {
