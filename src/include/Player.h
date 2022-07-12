@@ -11,10 +11,13 @@ enum PlayerType {
 
 class Player : public GameObject {
     PlayerType m_who;
-    Ball* m_pBall; // Only for AI
+
+    // AI section
+    Ball* m_pBall;
+    unsigned m_lastDecision;
 public:
     Player(PlayerType who, Ball* pBall)
-        : GameObject(), m_who(who), m_pBall(pBall) {}
+        : GameObject(), m_who(who), m_pBall(pBall), m_lastDecision(0) {}
 
     virtual void Update();
 private:

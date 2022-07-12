@@ -3,6 +3,7 @@
 #include "Player.h"
 
 const int SPEED = 10;
+const int DECISION_DELAY = 150;
 
 void Player::Update()
 {
@@ -49,8 +50,36 @@ void Player::HandleInput()
 
 void Player::HandleAI()
 {
-    if (m_pBall->GetPosition().GetY() < m_position.GetY())
-        m_velocity.SetY(-SPEED);
-    else
-        m_velocity.SetY(SPEED);
+    if (SDL_GetTicks() - m_lastDecision >= DECISION_DELAY)
+    {
+        m_lastDecision = SDL_GetTicks();
+
+        // Try to take the position on the middle of map
+        if (m_pBall->GetVelocity().GetX() <= 0)
+        {
+            // Already there
+            if (720/2 >= m_position.GetY() + m_height/3 &&
+                720/2 <= m_position.GetY() + m_height*2/3)
+                return;
+
+            if (720/2 < m_position.GetY())
+                m_velocity.SetY(-SPEED);
+            else
+                m_velocity.SetY(SPEED);
+        }
+
+        // Stop if ball is on our Y position
+        if (m_pBall->GetPosition().GetY() >= m_position.GetY() + m_height/3 &&
+            m_pBall->GetPosition().GetY() <= m_position.GetY() + m_height*2/3)
+        {
+            m_velocity.SetY(0);
+            return;
+        }
+
+        // Try to align
+        if (m_pBall->GetPosition().GetY() < m_position.GetY())
+            m_velocity.SetY(-SPEED);
+        else
+            m_velocity.SetY(SPEED);
+    }
 }
