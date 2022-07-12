@@ -3,10 +3,16 @@
 
 #include "GameObject.h"
 
+enum PlayerType {
+    FIRST_PLAYER = 1,
+    SECOND_PLAYER,
+    AI_PLAYER
+};
+
 class Player : public GameObject {
-    int m_who;
+     PlayerType m_who;
 public:
-    Player(int who) : GameObject(), m_who(who) {}
+    Player(PlayerType who) : GameObject(), m_who(who) {}
 
     virtual void Update();
 private:
