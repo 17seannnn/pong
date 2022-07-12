@@ -13,6 +13,7 @@ public:
 
     void Update();
     bool IsKeyDown(SDL_Keycode key);
+    bool IsKeyDown(SDL_Scancode code);
 private:
     InputHandler() {}
     ~InputHandler() {}

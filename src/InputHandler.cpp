@@ -42,3 +42,10 @@ bool InputHandler::IsKeyDown(SDL_Keycode key)
         return m_keyState[SDL_GetScancodeFromKey(key)];
     return false;
 }
+
+bool InputHandler::IsKeyDown(SDL_Scancode code)
+{
+    if (m_keyState)
+        return m_keyState[code];
+    return false;
+}

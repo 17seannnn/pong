@@ -28,9 +28,9 @@ void Player::HandleInput()
     switch (m_who)
     {
     case FIRST_PLAYER:
-        if (InputHandler::Instance()->IsKeyDown(SDLK_w))
+        if (InputHandler::Instance()->IsKeyDown(SDL_SCANCODE_W))
             m_velocity.SetY(-PLAYER_SPEED);
-        else if (InputHandler::Instance()->IsKeyDown(SDLK_s))
+        else if (InputHandler::Instance()->IsKeyDown(SDL_SCANCODE_S))
             m_velocity.SetY(PLAYER_SPEED);
         else
             m_velocity.SetY(0);
