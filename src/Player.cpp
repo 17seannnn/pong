@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "InputHandler.h"
 
 #include "Player.h"
@@ -6,6 +8,7 @@ const int SPEED = 10;
 const int DECISION_DELAY = 60;
 const int MIN_HIT_DELAY = 200;
 const int HIT_DELAY_RANGE = 300;
+const int MAX_PREDICTION_ITERATIONS = 2;
 
 void Player::Update()
 {
@@ -65,39 +68,84 @@ void Player::HandleAI()
     }
 
     // Decisions
-    if (SDL_GetTicks() - m_lastDecision >= DECISION_DELAY)
+    if (SDL_GetTicks() - m_lastDecision < DECISION_DELAY)
+        return;
+
+    m_lastDecision = SDL_GetTicks();
+
+    // Try to take the position on the middle of map
+    if (m_pBall->GetVelocity().GetX() <= 0)
     {
-        m_lastDecision = SDL_GetTicks();
-
-        // Try to take the position on the middle of map
-        if (m_pBall->GetVelocity().GetX() <= 0)
-        {
-            // Already there
-            if (720/3 <= m_position.GetY() + m_height/3 &&
-                720*2/3 >= m_position.GetY() + m_height*2/3)
-                return;
-
-            if (720/2 < m_position.GetY())
-                m_velocity.SetY(-SPEED);
-            else
-                m_velocity.SetY(SPEED);
-
+        // Already there
+        if (720/3 <= m_position.GetY() + m_height/3 &&
+            720*2/3 >= m_position.GetY() + m_height*2/3)
             return;
-        }
 
-        // Stop if ball is on our Y position
-        if (m_pBall->GetPosition().GetY() +
-            m_pBall->GetHeight() > m_position.GetY() + m_height/2.5f &&
-            m_pBall->GetPosition().GetY() < m_position.GetY() + m_height*2/2.5f)
-        {
-            m_velocity.SetY(0);
-            return;
-        }
-
-        // Try to align
-        if (m_pBall->GetPosition().GetY() < m_position.GetY())
+        if (720/2 < m_position.GetY())
             m_velocity.SetY(-SPEED);
         else
             m_velocity.SetY(SPEED);
+
+        return;
     }
+
+    // Try to predict where will be the ball
+    int width = m_pBall->GetWidth();
+    int height = m_pBall->GetHeight();
+    Vector2D position = m_pBall->GetPosition();
+    Vector2D velocity = m_pBall->GetVelocity();
+
+    bool bPredicted = false;
+
+    if (static_cast<int>(velocity.GetX()) != 0 ||
+        static_cast<int>(velocity.GetY()) != 0)
+    {
+        for (int i = 0; i < MAX_PREDICTION_ITERATIONS; i++)
+        {
+            while (position.GetY() > 0 && position.GetY() + height < 720 &&
+                   position.GetX() + width < m_position.GetX())
+                position += velocity;
+
+            if (position.GetY() < 0)
+            {
+                velocity.SetY(SPEED);
+            }
+            else if (position.GetY() + height >= 720)
+            {
+                velocity.SetY(-SPEED);
+            }
+            else if (position.GetX() + width >= m_position.GetX())
+            {
+                bPredicted = true;
+                break;
+            }
+        }
+    }
+
+    // Align to predicted position
+    if (bPredicted)
+    {
+        printf("Predicted: %f-%f\n", position.GetX(), position.GetY());
+
+        if (position.GetY() < m_position.GetY() + (m_height - height)/2)
+            m_velocity.SetY(-SPEED);
+        else
+            m_velocity.SetY(SPEED);
+        return;
+    }
+
+    // Stop if ball is on our Y position
+    if (m_pBall->GetPosition().GetY() +
+        m_pBall->GetHeight() > m_position.GetY() + m_height/2.5f &&
+        m_pBall->GetPosition().GetY() < m_position.GetY() + m_height*2/2.5f)
+    {
+        m_velocity.SetY(0);
+        return;
+    }
+
+    // Try to align
+    if (m_pBall->GetPosition().GetY() < m_position.GetY())
+        m_velocity.SetY(-SPEED);
+    else
+        m_velocity.SetY(SPEED);
 }
