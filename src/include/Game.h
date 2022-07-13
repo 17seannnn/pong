@@ -23,6 +23,7 @@ public:
     void Quit() { m_bRunning = false; }
     void Clean();
 
+    void ChangeState(GameState* pState) { m_pNextState = pState; }
     SDL_Renderer* GetRenderer() { return m_pRenderer; }
 
     bool Running() const { return m_bRunning; }

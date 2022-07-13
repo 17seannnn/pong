@@ -70,14 +70,14 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-    m_pCurrentState->Update();
-
     if (m_pNextState)
     {
         delete m_pCurrentState;
         m_pCurrentState = m_pNextState;
         m_pNextState = 0;
     }
+
+    m_pCurrentState->Update();
 }
 
 void Game::Render()
