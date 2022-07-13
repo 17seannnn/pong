@@ -23,6 +23,8 @@ public:
     void Quit() { m_bRunning = false; }
     void Clean();
 
+    SDL_Renderer* GetRenderer() { return m_pRenderer; }
+
     bool Running() const { return m_bRunning; }
     void HandleEvents();
     void Update();

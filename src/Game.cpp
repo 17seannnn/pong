@@ -4,7 +4,7 @@
 
 #include "TextureManager.h"
 #include "InputHandler.h"
-#include "PlayState.h"
+#include "MenuState.h"
 
 #include "Game.h"
 
@@ -40,13 +40,7 @@ bool Game::Init(const char* title, int width, int height)
     }
     SDL_SetRenderDrawColor(m_pRenderer, 0x00, 0x00, 0x00, 255);
 
-    TextureManager::Instance()->SetRenderer(m_pRenderer);
-    TextureManager::Instance()->Load("assets/divider.png", TEXTURE_DIVIDER);
-    TextureManager::Instance()->Load("assets/ball.png", TEXTURE_BALL);
-    TextureManager::Instance()->Load("assets/player.png", TEXTURE_PLAYER);
-    TextureManager::Instance()->Load("assets/numbers.png", TEXTURE_NUMBERS);
-
-    m_pCurrentState = new PlayState();
+    m_pCurrentState = new MenuState();
     m_pNextState = 0;
 
     m_bRunning = true;

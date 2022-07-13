@@ -1,6 +1,8 @@
 #include <iostream>
 #include <SDL2/SDL_image.h>
 
+#include "Game.h"
+
 #include "TextureManager.h"
 
 TextureManager* TextureManager::s_pInstance = 0;
@@ -8,7 +10,15 @@ TextureManager* TextureManager::s_pInstance = 0;
 TextureManager* TextureManager::Instance()
 {
     if (!s_pInstance)
-        s_pInstance = new TextureManager;
+    {
+        s_pInstance = new TextureManager();
+        s_pInstance->SetRenderer(Game::Instance()->GetRenderer());
+        s_pInstance->Load("assets/menu_background.png", TEXTURE_MENU_BACKGROUND);
+        s_pInstance->Load("assets/divider.png", TEXTURE_DIVIDER);
+        s_pInstance->Load("assets/ball.png", TEXTURE_BALL);
+        s_pInstance->Load("assets/player.png", TEXTURE_PLAYER);
+        s_pInstance->Load("assets/numbers.png", TEXTURE_NUMBERS);
+    }
     return s_pInstance;
 }
 

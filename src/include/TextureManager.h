@@ -1,15 +1,17 @@
 #ifndef TEXTURE_MANAGER_H
 #define TEXTURE_MANAGER_H
 
-#include <string>
 #include <SDL2/SDL.h>
 
 #include "Vector.h"
 
-const int TEXTURE_DIVIDER = 0;
-const int TEXTURE_BALL    = 1;
-const int TEXTURE_PLAYER  = 2;
-const int TEXTURE_NUMBERS = 3;
+enum {
+    TEXTURE_MENU_BACKGROUND = 0,
+    TEXTURE_DIVIDER,
+    TEXTURE_BALL,
+    TEXTURE_PLAYER,
+    TEXTURE_NUMBERS
+};
 
 class TextureManager {
     static TextureManager* s_pInstance;
