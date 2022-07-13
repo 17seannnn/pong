@@ -42,7 +42,7 @@ void Player::HandleInput()
         else if (InputHandler::Instance()->IsKeyDown(SDLK_DOWN))
             m_velocity.SetY(PLAYER_SPEED);
         else
-            m_velocity.SetY(PLAYER_SPEED);
+            m_velocity.SetY(0);
         break;
 
     case AI_PLAYER:

@@ -1,6 +1,6 @@
 #include "PlayState.h"
 
-PlayState::PlayState()
+PlayState::PlayState(bool AI)
 {
     Object* pObject = new GameObject();
     pObject->Init((1280 - 30) / 2, (720 - 640) / 2, 30, 640, TEXTURE_DIVIDER);
@@ -14,7 +14,7 @@ PlayState::PlayState()
     m_pPlayer1->Init(0, (720 - 140) / 2, 30, 140, TEXTURE_PLAYER);
     m_objects.PushBack(m_pPlayer1);
 
-    m_pPlayer2 = new Player(AI_PLAYER, m_pBall);
+    m_pPlayer2 = new Player(AI ? AI_PLAYER : SECOND_PLAYER, m_pBall);
     m_pPlayer2->Init(1280-30, (720 - 140) / 2, 30, 140, TEXTURE_PLAYER);
     m_objects.PushBack(m_pPlayer2);
 

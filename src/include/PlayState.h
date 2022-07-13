@@ -13,7 +13,7 @@ class PlayState : public GameState {
 
     int m_score1, m_score2;
 public:
-    PlayState();
+    PlayState(bool AI);
     ~PlayState() {}
 
     virtual void Update();

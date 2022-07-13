@@ -24,9 +24,6 @@ void MenuState::Update()
 {
     for (int i = 0; i < m_objects.Size(); i++)
         m_objects[i]->Update();
-
-    if (InputHandler::Instance()->IsKeyDown(SDL_SCANCODE_RETURN))
-        Game::Instance()->ChangeState(new PlayState());
 }
 
 void MenuState::Render()
@@ -37,10 +34,10 @@ void MenuState::Render()
 
 void MenuState::PlayAI()
 {
-    Game::Instance()->ChangeState(new PlayState());
+    Game::Instance()->ChangeState(new PlayState(true));
 }
 
 void MenuState::Play2()
 {
-    Game::Instance()->ChangeState(new PlayState());
+    Game::Instance()->ChangeState(new PlayState(false));
 }
