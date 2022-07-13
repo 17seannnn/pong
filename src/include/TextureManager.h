@@ -6,7 +6,8 @@
 #include "Vector.h"
 
 enum {
-    TEXTURE_MENU_BACKGROUND = 0,
+    TEXTURE_NONE = -1,
+    TEXTURE_MENU_BACKGROUND,
     TEXTURE_DIVIDER,
     TEXTURE_BALL,
     TEXTURE_PLAYER,

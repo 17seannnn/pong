@@ -10,6 +10,10 @@ public:
 
     virtual void Update();
     virtual void Render();
+private:
+    // Callback functions
+    static void PlayAI();
+    static void Play2();
 };
 
 #endif

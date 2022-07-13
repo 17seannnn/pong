@@ -62,5 +62,6 @@ void TextureManager::Draw(int x, int y, int w, int h, int frame, int row, int id
 
 void TextureManager::GetNumFramesAndRows(int id, int& numFrames, int& numRows)
 {
-    SDL_QueryTexture(m_textures[id], 0, 0, &numFrames, &numRows);
+    if (id != TEXTURE_NONE)
+        SDL_QueryTexture(m_textures[id], 0, 0, &numFrames, &numRows);
 }

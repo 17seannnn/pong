@@ -13,8 +13,7 @@ protected:
     Vector2D m_velocity;
     int m_width;
     int m_height;
-    int m_callbackID; // For menu buttons
-    int m_animSpeed;  // For animated text
+    void (*m_callback)(); // For menu buttons
     int m_currentFrame;
     int m_currentRow;
     int m_numFrames;
@@ -24,7 +23,7 @@ public:
     GameObject() : Object() {}
 
     virtual void Init(int x, int y, int w, int h, int textureID,
-                      int callbackID = 0, int animSpeed = 0);
+                      void (*callback)() = 0);
     virtual void Clean() { delete this; }
     virtual void Update() {}
     virtual void Draw() {

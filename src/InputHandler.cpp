@@ -16,6 +16,7 @@ void InputHandler::Update()
     SDL_Event e;
 
     m_keyState = SDL_GetKeyboardState(0);
+    m_mouseState = SDL_GetMouseState(&m_mouseX, &m_mouseY);
 
     while (SDL_PollEvent(&e))
     {
@@ -48,4 +49,10 @@ bool InputHandler::IsKeyDown(SDL_Scancode code)
     if (m_keyState)
         return m_keyState[code];
     return false;
+}
+
+void InputHandler::GetMousePosition(int& x, int& y)
+{
+    x = m_mouseX;
+    y = m_mouseY;
 }

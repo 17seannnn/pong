@@ -1,5 +1,6 @@
 SRCMODULES = main.cpp Game.cpp TextureManager.cpp InputHandler.cpp \
-GameObject.cpp GameState.cpp MenuState.cpp PlayState.cpp Player.cpp Ball.cpp
+GameObject.cpp GameState.cpp MenuState.cpp PlayState.cpp Button.cpp \
+Player.cpp Ball.cpp
 OBJMODULES = $(SRCMODULES:.cpp=.o)
 INCLUDEDIRS = include
 CXX=c++

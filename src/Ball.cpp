@@ -7,7 +7,7 @@ const float SPEED_PART = Ball::BALL_MAX_SPEED / SPEED_PARTS;
 const float PLAYER_PART = 70 / SPEED_PARTS;
 
 void Ball::Init(int x, int y, int w, int h, int textureID,
-                int callbackID, int animSpeed)
+                int callbackID)
 {
     GameObject::Init(x, y, w, h, textureID);
 
