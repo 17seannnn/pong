@@ -20,4 +20,4 @@ deps.mk: $(SRCMODULES)
 	$(CXX) $(INCLUDEDIRS:%=-iquote %) -MM $^ > $@
 
 clean:
-	$(RM) -rf *.o deps.mk a.out
+	$(RM) -rf *.o deps.mk pong
