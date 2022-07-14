@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <SDL2/SDL_image.h>
 
 #include "TextureManager.h"
 #include "InputHandler.h"
@@ -20,6 +21,12 @@ Game* Game::Instance()
 bool Game::Init(const char* title, int width, int height)
 {
     srand(time(0));
+
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    {
+        std::cout << "Init error: " << SDL_GetError() << std::endl;
+        return false;
+    }
 
     m_pWindow = SDL_CreateWindow(title,
                                  SDL_WINDOWPOS_CENTERED,
@@ -60,6 +67,7 @@ void Game::Clean()
 
     SDL_DestroyRenderer(m_pRenderer);
     SDL_DestroyWindow(m_pWindow);
+    IMG_Quit();
     SDL_Quit();
 }
 
